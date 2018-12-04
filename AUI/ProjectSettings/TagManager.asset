@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CoffeeCup
+  - SodaCan
+  - WaterBottle
+  - WineBottle
+  - Fish
+  - Pizza
+  - Turkey
+  - Ball
+  - Soap
+  - Toothbrush
+  - Toothpaste
+  - Pillow
   layers:
   - Default
   - TransparentFX
