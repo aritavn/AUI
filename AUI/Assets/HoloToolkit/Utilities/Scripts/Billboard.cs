@@ -31,6 +31,7 @@ namespace HoloToolkit.Unity
         [Tooltip("Specifies the axis about which the object will rotate.")]
         [SerializeField]
         private PivotAxis pivotAxis = PivotAxis.XY;
+        private bool special = false;
         public PivotAxis PivotAxis
         {
             get { return pivotAxis; }
@@ -86,8 +87,9 @@ namespace HoloToolkit.Unity
             switch (PivotAxis)
             {
                 case PivotAxis.X:
-                    directionToTarget.x = 0.0f;
+                    directionToTarget.y = 0.0f;
                     useCameraAsUpVector = false;
+                    special = true;
                     break;
 
                 case PivotAxis.Y:
@@ -127,11 +129,26 @@ namespace HoloToolkit.Unity
             // Calculate and apply the rotation required to reorient the object
             if (useCameraAsUpVector)
             {
-                transform.rotation = Quaternion.LookRotation(-directionToTarget, CameraCache.Main.transform.up);
+                if (!special)
+                {
+                    transform.rotation = Quaternion.LookRotation(-directionToTarget, CameraCache.Main.transform.up);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.LookRotation(directionToTarget, CameraCache.Main.transform.up);
+                }
             }
             else
             {
-                transform.rotation = Quaternion.LookRotation(-directionToTarget);
+                if (!special)
+                {
+                    transform.rotation = Quaternion.LookRotation(-directionToTarget);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.LookRotation(directionToTarget);
+                }
+
             }
         }
     }
