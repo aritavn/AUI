@@ -1,4 +1,3 @@
-AUI/Library/
-AUI/Temp/
-*/metadata/*
-AUI/Library/metadata/
+AUI/Library/ShaderCache
+AUI/Library/PlayerDataCache
+AUI/Library/Metadata
