@@ -7,6 +7,7 @@ namespace LocalJoost.HoloToolkitExtensions
         protected AudioSource Sound;
         protected MoveByGaze GazeMover;
         private GameObject box;
+        private GameObject under;
 
         void Start()
         {
@@ -14,6 +15,7 @@ namespace LocalJoost.HoloToolkitExtensions
             InputManager.Instance.
             PushFallbackInputHandler(gameObject);
             box = GameObject.Find("Box8");
+            under = GameObject.Find("Spatial Status Billboard");
 
         }
         public void OnInputClicked(InputClickedEventData eventData)
@@ -24,6 +26,7 @@ namespace LocalJoost.HoloToolkitExtensions
             }
             else
             {
+                box.GetComponent<SpatialUnderstandingState>().setString("");
                 box.GetComponent<Roulette>().startRoulette();
                 GazeMover.IsActive = false;
             }

@@ -24,6 +24,7 @@ public class SpatialUnderstandingState : Singleton<SpatialUnderstandingState>, I
     GameObject rocket;
     GameObject spatial;
     GameObject ruota;
+    private string s;
 
     public SpatialUnderstandingCustomMesh SpatialUnderstandingMesh;
 
@@ -108,7 +109,7 @@ public class SpatialUnderstandingState : Singleton<SpatialUnderstandingState>, I
                     case SpatialUnderstanding.ScanStates.Finishing:
                         return "Finalizing scan (please wait)";
                     case SpatialUnderstanding.ScanStates.Done:
-                        return "";
+                        return s;
                     default:
                         return "ScanState = " + SpatialUnderstanding.Instance.ScanState;
                 }
@@ -139,6 +140,11 @@ public class SpatialUnderstandingState : Singleton<SpatialUnderstandingState>, I
                 (PrimaryText.Contains("processing") ? new Color(1.0f, 0.0f, 0.0f, 1.0f) : new Color(1.0f, 0.7f, 0.1f, alpha)) :
                 new Color(1.0f, 1.0f, 1.0f, alpha);
         }
+    }
+
+    public void setString(string copy)
+    {
+        s = copy;
     }
 
     public string DetailsText
@@ -217,7 +223,7 @@ public class SpatialUnderstandingState : Singleton<SpatialUnderstandingState>, I
             (SpatialUnderstanding.Instance.ScanState == SpatialUnderstanding.ScanStates.Scanning) &&
             !SpatialUnderstanding.Instance.ScanStatsReportStillWorking)
         {
-
+            s = "Tap to place the model in the environment";
             spatial = GameObject.Find("Spatial Understanding");
             spatial.GetComponent<SpatialUnderstandingCustomMesh>().DrawProcessedMesh = false;
             SpatialUnderstanding.Instance.RequestFinishScan();
@@ -225,6 +231,7 @@ public class SpatialUnderstandingState : Singleton<SpatialUnderstandingState>, I
             rocket.GetComponent<ParticleSystem>().Pause();
         }
     }
+
 
     void ISourceStateHandler.OnSourceDetected(SourceStateEventData eventData)
     {
