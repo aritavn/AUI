@@ -109,7 +109,7 @@ public class Roulette : MonoBehaviour {
     private void randomState()
     {
         System.Random rnd = new System.Random();
-        state = rnd.Next(1, 10);
+        state = rnd.Next(1, 8);
     }
 
     public void startRoulette()
