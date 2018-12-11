@@ -45,7 +45,7 @@ public class Roulette : MonoBehaviour {
         box = GameObject.Find("Box8");
         m_Animator = box.GetComponent<Animator>();
 
-        
+
     }
 	
 	// Update is called once per frame
@@ -55,7 +55,6 @@ public class Roulette : MonoBehaviour {
             closing==false)
         {
             setGo();
-
             switch (state)
             {
                 case 1:
@@ -80,15 +79,9 @@ public class Roulette : MonoBehaviour {
                     ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 7") as Material;
                     break;
                 case 8:
-                    ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 10") as Material;
-                    break;
-                case 9:
-                    ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 11") as Material;
-                    break;
-                case 10:
                     ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 12") as Material;
                     break;
-                case 11:
+                case 9:
                     ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 13") as Material;
                     break;
                 default:
@@ -116,7 +109,7 @@ public class Roulette : MonoBehaviour {
     private void randomState()
     {
         System.Random rnd = new System.Random();
-        state = rnd.Next(1, 11);
+        state = rnd.Next(1, 10);
     }
 
     public void startRoulette()
@@ -145,11 +138,19 @@ public class Roulette : MonoBehaviour {
     public void showRight()
     {
         left.GetComponent<Renderer>().material = Resources.Load("LeftRight") as Material;
+        StartCoroutine(Wait());
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(10f);
+        left.GetComponent<Renderer>().material = Resources.Load("Left") as Material;
     }
 
     public void showWrong()
     {
         left.GetComponent<Renderer>().material = Resources.Load("LeftWrong") as Material;
+        StartCoroutine(Wait());
     }
 
     public void showEmpty()
