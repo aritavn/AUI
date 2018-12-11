@@ -12,12 +12,25 @@ public class ObjectBehaviour : MonoBehaviour, IInputClickHandler
         {
             state = 1;
         }
-          if (gameObject.GetComponent<ID>().getID()==state)
+        if (gameObject.GetComponent<ID>().getID()==state)
         {
+            GameObject.Find("Box8").GetComponent<Roulette>().showRight();
             GameObject.Find("Box8").GetComponent<Roulette>().playRight();
+            StartCoroutine(Wait());
             GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>().DestroyObjects();
         }
+        else
+        {
+            GameObject.Find("Box8").GetComponent<Roulette>().showWrong();
+            GameObject.Find("Box8").GetComponent<Roulette>().playWrong();
+        }
           
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2f);
+        GameObject.Find("Box8").GetComponent<Roulette>().stopRoulette();
     }
     // Use this for initialization
     void Start()
