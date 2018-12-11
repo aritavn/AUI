@@ -37,7 +37,7 @@ public class Roulette : MonoBehaviour {
         audioWrong = AddAudio(clipWrong, false, false, 0.7f, 1f);
         audioLever = AddAudio(clipLever, false, false, 0.5f, 1f);
         audioRolling = AddAudio(clipRolling, false, false, 0.6f, 1.4f);
-        audioFireworks = AddAudio(clipFireworks, false, false, 0.1f, 1f);
+        audioFireworks = AddAudio(clipFireworks, false, false, 0.1f, 0.95f);
 
         ruota = GameObject.Find("pCylinder7");
         left = GameObject.Find("pCube5");
@@ -116,7 +116,7 @@ public class Roulette : MonoBehaviour {
     {
         setWait();
         showEmpty();
-        audioLever.PlayDelayed(1.5f);
+        audioLever.PlayDelayed(1.15f);
         audioRolling.PlayDelayed(1.7f);
         randomState();
         m_Animator.SetTrigger("Open");
@@ -171,7 +171,7 @@ public class Roulette : MonoBehaviour {
     public void stopRoulette()
     {
         setWait();
-        audioFireworks.PlayDelayed(1.2f);
+        audioFireworks.PlayDelayed(1.3f);
         m_Animator.SetTrigger("Close");
         closing = true;
         rocket = GameObject.Find("Rocket");
