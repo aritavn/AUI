@@ -18,7 +18,7 @@ public class ChoiceManager : TaskManager
 
     public void GenerateObjectsInWorld(int state)
     {
-        floor = SpatialProcessing.Instance.floors.ElementAt(0).transform;
+        /*floor = SpatialProcessing.Instance.floors.ElementAt(0).transform;
         table = SpatialProcessing.Instance.tables.ElementAt(0).transform;
         tablePlane = table.GetComponent<SurfacePlane>();
         plane = floor.GetComponent<SurfacePlane>();
@@ -29,23 +29,24 @@ public class ChoiceManager : TaskManager
         Vector3 relativePos = Camera.main.transform.position - gazePosition;
         rotation = Quaternion.LookRotation(relativePos);
         rotation.x = 0f;
-        rotation.z = 0f;
+        rotation.z = 0f;*/
+        Vector3 floorPosition0 = GameObject.Find("Plane").transform.position;
         System.Random rnd = new System.Random();
         Transform objects = new GameObject("Object").transform;
         objects.tag = "Objects";
         Transform other1;
         Transform other2;
         //da rimuovere poi
-        Vector3 floorPosition1 = floorPosition;
+        Vector3 floorPosition1 = floorPosition0;
         floorPosition1.x = floorPosition1.x + 1f;
-        Vector3 floorPosition2 = floorPosition;
-        floorPosition2.x = floorPosition2.x + 1f;
+        Vector3 floorPosition2 = floorPosition0;
+        floorPosition2.x = floorPosition2.x - 1f;
 
         switch (state)
         {
             case 1://POSATE-->CIBO
                 Transform food = objectPrefabs.transform.GetChild(0);
-                Instantiate(food, floorPosition, food.rotation, objects);
+                Instantiate(food, floorPosition0, food.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(rnd.Next(1, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(rnd.Next(1, objectPrefabs.transform.childCount));
@@ -53,7 +54,7 @@ public class ChoiceManager : TaskManager
                 break;
             case 5://TAVOLO APPARECCHIATO-->CIBO
                 Transform food1 = objectPrefabs.transform.GetChild(0);
-                Instantiate(food1, floorPosition, food1.rotation, objects);
+                Instantiate(food1, floorPosition0, food1.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(rnd.Next(1, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(rnd.Next(1, objectPrefabs.transform.childCount));
@@ -61,7 +62,7 @@ public class ChoiceManager : TaskManager
                 break;
             case 12://BICCHIERE VUOTO-->ACQUA
                 Transform water = objectPrefabs.transform.GetChild(1);
-                Instantiate(water, floorPosition, water.rotation, objects);
+                Instantiate(water, floorPosition0, water.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(Randomize(1, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(Randomize(1, objectPrefabs.transform.childCount));
@@ -69,7 +70,7 @@ public class ChoiceManager : TaskManager
                 break;
             case 2://DENTI SPORCHI-->DENTIFRICIO
                 Transform teeth = objectPrefabs.transform.GetChild(2);
-                Instantiate(teeth, floorPosition, teeth.rotation, objects);
+                Instantiate(teeth, floorPosition0, teeth.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(Randomize(2, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(Randomize(2, objectPrefabs.transform.childCount));
@@ -77,7 +78,7 @@ public class ChoiceManager : TaskManager
                 break;
             case 3://DELFINO SPORCO-->SAPONETTA
                 Transform dolphin = objectPrefabs.transform.GetChild(3);
-                Instantiate(dolphin, floorPosition, dolphin.rotation, objects);
+                Instantiate(dolphin, floorPosition0, dolphin.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(Randomize(3, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(Randomize(3, objectPrefabs.transform.childCount));
@@ -85,7 +86,7 @@ public class ChoiceManager : TaskManager
                 break;
             case 6://CINEMA-->? per ora sostituito con pizza
                 Transform movie = objectPrefabs.transform.GetChild(4);
-                Instantiate(movie, floorPosition, movie.rotation, objects);
+                Instantiate(movie, floorPosition0, movie.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(Randomize(4, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(Randomize(4, objectPrefabs.transform.childCount));
@@ -93,7 +94,7 @@ public class ChoiceManager : TaskManager
                 break;
             case 4://LETTO-->CUSCINO
                 Transform pillow = objectPrefabs.transform.GetChild(5);
-                Instantiate(pillow, floorPosition, pillow.rotation, objects);
+                Instantiate(pillow, floorPosition0, pillow.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(Randomize(5, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(Randomize(5, objectPrefabs.transform.childCount));
@@ -101,7 +102,7 @@ public class ChoiceManager : TaskManager
                 break;
             case 7://CAMPO DA CALCIO-->PALLA
                 Transform ball = objectPrefabs.transform.GetChild(6);
-                Instantiate(ball, floorPosition, ball.rotation, objects);
+                Instantiate(ball, floorPosition0, ball.rotation, objects);
                 other1 = objectPrefabs.transform.GetChild(Randomize(6, objectPrefabs.transform.childCount));
                 Instantiate(other1, floorPosition1, other1.rotation, objects);
                 other2 = objectPrefabs.transform.GetChild(Randomize(6, objectPrefabs.transform.childCount));
@@ -164,8 +165,8 @@ public class ChoiceManager : TaskManager
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(10f);
-        Destroy(GameObject.Find("Object").transform.GetChild(0).gameObject);
-        //Chiama la roulette per passare allo stato successivo
+        Destroy(GameObject.Find("Object"));
+        GameObject.Find("Box8").GetComponent<Roulette>().startRoulette();
     }
 
 }
