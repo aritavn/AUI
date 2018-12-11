@@ -18,6 +18,7 @@ public class EventManager
     private bool conditionVerified = false;
     private int lastRoueletteState = 0;
     private int rouletteState = 0;
+    private Roulette roulette;
 
     private static EventManager instance = null;
 
@@ -45,10 +46,8 @@ public class EventManager
     {
 
         lastRoueletteState = rouletteState;
-        Roulette roulette = GameObject.Find("Box8").GetComponent<Roulette>();
+        roulette = GameObject.Find("Box8").GetComponent<Roulette>();
         rouletteState = roulette.getState();
-
-        //RouletteRandom roulette = GameObject.Find("Roulette").GetComponent<RouletteRandom>();
         
 
         Debug.Log("roulette state: " + rouletteState + " last state: " + lastRoueletteState);
@@ -120,8 +119,17 @@ public class EventManager
             if (conditionVerified)
             {
                 Debug.Log("Condition verified");
+                roulette.showRight();
+                roulette.playRight();
+
                 //CALL TO MIRKO'S CODE
-                //GenerateObjectsInWorld(rouletteState);
+                ChoiceManager choiceManager = GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>();
+                choiceManager.GenerateObjectsInWorld(rouletteState);
+            }
+            else
+            {
+                roulette.showWrong();
+                roulette.playWrong();
             }
         }
 

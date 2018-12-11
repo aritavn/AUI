@@ -69,10 +69,14 @@ public class KeyboardInputManager : MonoBehaviour {
             eventManager.checkEvent(eventObjcet);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.N))
         {
-            System.Random rnd = new System.Random();
-            int state = rnd.Next(1, 12);
+            Debug.Log("HOLD");
+            string jsonString = "{\"events\": [{\"typ\": \"touch\", \"val\": \"5\", \"act\": 1, \"dur\": \"5000\"}]}";
+
+            EventObject eventObjcet = JsonParser.parse(jsonString);
+            EventManager eventManager = EventManager.getEventManager();
+            eventManager.checkEvent(eventObjcet);
 
         }
 
