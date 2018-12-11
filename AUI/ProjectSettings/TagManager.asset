@@ -16,6 +16,7 @@ TagManager:
   - Toothbrush
   - Toothpaste
   - Pillow
+  - Objects
   layers:
   - Default
   - TransparentFX

@@ -52,23 +52,24 @@ public class TaskInteractionHandler : MonoBehaviour, ISpeechHandler, IInputClick
 
     public void StartPlay()
     {
-        if (readyToPlay)
+       /* if (readyToPlay)
         {
             TaskManager.Instance.GenerateObjectsInWorld();
             readyToPlay = false;
-        }
+        }*/
     }
 
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(3f);
         box.SetActive(true);
+        rocket.GetComponent<ParticleSystem>().Pause();
         //TaskManager.Instance.GenerateObjectsInWorld();
     }
 
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        StartPlay();
+        //StartPlay();
     }
 
 

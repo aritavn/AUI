@@ -15,18 +15,13 @@ namespace LocalJoost.HoloToolkitExtensions
             InputManager.Instance.
             PushFallbackInputHandler(gameObject);
             box = GameObject.Find("Box8");
-            under = GameObject.Find("Spatial Status Billboard");
+            //under = GameObject.Find("Spatial Status Billboard");
 
         }
         public void OnInputClicked(InputClickedEventData eventData)
         {
-            if (!GazeMover.IsActive)
+            if (GazeMover.IsActive)
             {
-                box.GetComponent<Roulette>().stopRoulette();
-            }
-            else
-            {
-                under.GetComponent<SpatialUnderstandingState>().setString("");
                 box.GetComponent<Roulette>().startRoulette();
                 GazeMover.IsActive = false;
             }
