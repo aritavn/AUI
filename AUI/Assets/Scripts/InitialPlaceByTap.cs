@@ -26,7 +26,7 @@ namespace LocalJoost.HoloToolkitExtensions
             }
             else
             {
-                box.GetComponent<SpatialUnderstandingState>().setString("");
+                under.GetComponent<SpatialUnderstandingState>().setString("");
                 box.GetComponent<Roulette>().startRoulette();
                 GazeMover.IsActive = false;
             }

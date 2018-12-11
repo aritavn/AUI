@@ -7,6 +7,8 @@ public class Roulette : MonoBehaviour {
     private GameObject box;
     private Animator m_Animator;
     private GameObject rocket;
+    private GameObject top;
+    private GameObject left;
     private bool closing = false;
 
     public AudioClip clipRight;
@@ -33,13 +35,17 @@ public class Roulette : MonoBehaviour {
 
         audioRight = AddAudio(clipRight, false, false, 0.45f, 1f);
         audioWrong = AddAudio(clipWrong, false, false, 0.7f, 1f);
-        audioLever = AddAudio(clipLever, false, false, 0.45f, 1f);
-        audioRolling = AddAudio(clipRolling, false, false, 0.7f, 1.4f);
+        audioLever = AddAudio(clipLever, false, false, 0.5f, 1f);
+        audioRolling = AddAudio(clipRolling, false, false, 0.6f, 1.4f);
         audioFireworks = AddAudio(clipFireworks, false, false, 0.1f, 1f);
 
         ruota = GameObject.Find("pCylinder7");
+        left = GameObject.Find("pCube5");
+        top = GameObject.Find("pCube3");
         box = GameObject.Find("Box8");
         m_Animator = box.GetComponent<Animator>();
+
+        
     }
 	
 	// Update is called once per frame
@@ -48,7 +54,8 @@ public class Roulette : MonoBehaviour {
             m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f &&
             closing==false)
         {
-            
+            setGo();
+
             switch (state)
             {
                 case 1:
@@ -114,6 +121,8 @@ public class Roulette : MonoBehaviour {
 
     public void startRoulette()
     {
+        setWait();
+        showEmpty();
         audioLever.PlayDelayed(1.5f);
         audioRolling.PlayDelayed(1.7f);
         randomState();
@@ -133,8 +142,34 @@ public class Roulette : MonoBehaviour {
         audioWrong.Play();
     }
 
+    public void showRight()
+    {
+        left.GetComponent<Renderer>().material = Resources.Load("LeftRight") as Material;
+    }
+
+    public void showWrong()
+    {
+        left.GetComponent<Renderer>().material = Resources.Load("LeftWrong") as Material;
+    }
+
+    public void showEmpty()
+    {
+        left.GetComponent<Renderer>().material = Resources.Load("Left") as Material;
+    }
+
+    public void setGo()
+    {
+        top.GetComponent<Renderer>().material = Resources.Load("TopGo") as Material;
+    }
+
+    public void setWait()
+    {
+        top.GetComponent<Renderer>().material = Resources.Load("TopWait") as Material;
+    }
+
     public void stopRoulette()
     {
+        setWait();
         audioFireworks.PlayDelayed(1.2f);
         m_Animator.SetTrigger("Close");
         closing = true;

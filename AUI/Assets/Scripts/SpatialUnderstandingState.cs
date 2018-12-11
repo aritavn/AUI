@@ -201,7 +201,7 @@ public class SpatialUnderstandingState : Singleton<SpatialUnderstandingState>, I
         InputManager.Instance.PushFallbackInputHandler(gameObject);
         box = GameObject.Find("Box8");
         rocket = GameObject.Find("Rocket");
-        box.SetActive(false);
+        //box.SetActive(false);
         rocket.GetComponent<ParticleSystem>().Pause();
     }
 
