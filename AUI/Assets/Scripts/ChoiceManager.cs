@@ -39,160 +39,79 @@ public class ChoiceManager : TaskManager
         //da rimuovere poi
         floorPosition0.y = floorPosition0.y + 0.2f;
         Vector3 floorPosition1 = floorPosition0;
-        Vector3 floorPosition2 = floorPosition0;
-        int objectPosition = rnd.Next(0, 2);
-        if(objectPosition==0)
-        {
         floorPosition1.x = floorPosition1.x + 1f;
+        Vector3 floorPosition2 = floorPosition0;
         floorPosition2.x = floorPosition2.x - 1f;
-       }
-        if (objectPosition == 1)
-        {
-            floorPosition0.x = floorPosition0.x + 1f;
-            floorPosition2.x = floorPosition2.x - 1f;
-        }
-        if (objectPosition == 2)
-        {
-            floorPosition1.x = floorPosition1.x + 1f;
-            floorPosition0.x = floorPosition0.x - 1f;
-        }
+
         int secondChoice = 0;
+        int thirdChoice = 0;
+        int rightChild = 0;
+        int childCount = objectPrefabs.transform.childCount;
+
         switch (state)
         {
             case 1://POSATE-->CIBO
-                Transform food = objectPrefabs.transform.GetChild(0);
-                Instantiate(food, floorPosition0, food.rotation, objects);
-                secondChoice = rnd.Next(1, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(0, objectPrefabs.transform.childCount,secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
-                break;
             case 5://TAVOLO APPARECCHIATO-->CIBO
-                Transform food1 = objectPrefabs.transform.GetChild(0);
-                Instantiate(food1, floorPosition0, food1.rotation, objects);
-                secondChoice = rnd.Next(1, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(0, objectPrefabs.transform.childCount, secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
+                rightChild = 0;
                 break;
             case 12://BICCHIERE VUOTO-->ACQUA
-                Transform water = objectPrefabs.transform.GetChild(1);
-                Instantiate(water, floorPosition0, water.rotation, objects);
-                secondChoice = Randomize(1, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(1, objectPrefabs.transform.childCount,secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
+                rightChild = 1;
                 break;
             case 2://DENTI SPORCHI-->DENTIFRICIO
-                Transform teeth = objectPrefabs.transform.GetChild(2);
-                Instantiate(teeth, floorPosition0, teeth.rotation, objects);
-                secondChoice = Randomize(2, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(2, objectPrefabs.transform.childCount,secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
+                rightChild = 2;
                 break;
             case 3://DELFINO SPORCO-->SAPONETTA
-                Transform dolphin = objectPrefabs.transform.GetChild(3);
-                Instantiate(dolphin, floorPosition0, dolphin.rotation, objects);
-                secondChoice = Randomize(3, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(3, objectPrefabs.transform.childCount,secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
+                rightChild = 3;
                 break;
             case 6://CINEMA-->? per ora sostituito con pizza
-                Transform movie = objectPrefabs.transform.GetChild(4);
-                Instantiate(movie, floorPosition0, movie.rotation, objects);
-                secondChoice = Randomize(4, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(4, objectPrefabs.transform.childCount,secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
+                rightChild = 4;
                 break;
             case 4://LETTO-->CUSCINO
-                Transform pillow = objectPrefabs.transform.GetChild(5);
-                Instantiate(pillow, floorPosition0, pillow.rotation, objects);
-                secondChoice = Randomize(5, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(5, objectPrefabs.transform.childCount,secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
+                rightChild = 5;
                 break;
             case 7://CAMPO DA CALCIO-->PALLA
-                Transform ball = objectPrefabs.transform.GetChild(6);
-                Instantiate(ball, floorPosition0, ball.rotation, objects);
-                secondChoice = Randomize(6, objectPrefabs.transform.childCount);
-                other1 = objectPrefabs.transform.GetChild(secondChoice);
-                Instantiate(other1, floorPosition1, other1.rotation, objects);
-                other2 = objectPrefabs.transform.GetChild(Randomize2(6, objectPrefabs.transform.childCount,secondChoice));
-                Instantiate(other2, floorPosition2, other2.rotation, objects);
+                rightChild = 6;
                 break;
         }
+
+        Transform food = objectPrefabs.transform.GetChild(rightChild);
+        Instantiate(food, floorPosition0, food.rotation, objects);
+        secondChoice = findRandom(rightChild, childCount);
+        other1 = objectPrefabs.transform.GetChild(secondChoice);
+        Instantiate(other1, floorPosition1, other1.rotation, objects);
+        thirdChoice = findRandom2(rightChild, secondChoice, childCount);
+        other2 = objectPrefabs.transform.GetChild(thirdChoice);
+        Instantiate(other2, floorPosition2, other2.rotation, objects);
+
     }
     public override void GenerateObjectsInWorld()
     {
     }
-    public int Randomize(int ourChild, int maxValue)
+
+    private int findRandom(int exclude1, int max)
     {
-        int value;
+        int newNumber;
         System.Random rnd = new System.Random();
-        int chooseGroup = rnd.Next(0, 1);
-        if (chooseGroup == 0)
+        do
         {
-            value = rnd.Next(0, ourChild - 1);
-        }
-        else
-        {
-            value = rnd.Next(ourChild + 1, maxValue);
-        }
-        return value;
+          newNumber = rnd.Next(0, max);
+        } while (exclude1 == newNumber);
+
+        return newNumber;
     }
-    public int Randomize2(int ourChild, int maxValue,int secondObject)
+
+    private int findRandom2(int exclude1, int exclude2, int max)
     {
-        int value,chooseGroup;
+        int newNumber;
         System.Random rnd = new System.Random();
-        chooseGroup = rnd.Next(0, 2);
-        if (secondObject > ourChild)
+        do
         {
-            if (ourChild == 0)
-                chooseGroup = rnd.Next(1, 2);
-            if (chooseGroup == 0)
-            {
-                value = rnd.Next(0, ourChild - 1);
-            }
-            if(chooseGroup == 1&&(secondObject-ourChild)>2)
-            {
-                value = rnd.Next(ourChild + 1, secondObject-1);
-            }
-            else
-            {
-                value = rnd.Next(secondObject+1, maxValue);
-            }
-            return value;
-        }
-        else
-        {
-            if(ourChild==6)
-                  chooseGroup = rnd.Next(0,1);
-            if (chooseGroup == 0 && secondObject!=0)
-            {
-                value = rnd.Next(0, secondObject - 1);
-            }
-            if (chooseGroup == 1&&(ourChild - secondObject)>2)
-            {
-                value = rnd.Next(secondObject + 1, ourChild - 1);
-            }
-            else
-            {
-                value = rnd.Next(ourChild + 1, maxValue);
-            }
-            return value;
-        }
+            newNumber = rnd.Next(0, max);
+        } while (exclude1 == newNumber || exclude2 == newNumber);
+
+        return newNumber;
     }
+
     /// <summary>
     /// Adjusts the initial position of the object if it is being occluded by the spatial map.
     /// </summary>
