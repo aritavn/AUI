@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 3769
+  controlID: 323
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 421}
   m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 3877
+  controlID: 324
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 3770
+  controlID: 406
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -328,8 +328,8 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMin: 1
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
-    m_HSlider: 0
-    m_VSlider: 0
+    m_HSlider: 1
+    m_VSlider: 1
     m_IgnoreScrollWheelUntilClicked: 0
     m_EnableMouseInput: 1
     m_EnableSliderZoom: 0
@@ -341,18 +341,18 @@ MonoBehaviour:
       y: 17
       width: 681
       height: 287
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 340.5, y: 143.5}
+    m_Scale: {x: 1.15, y: 1.15}
+    m_Translation: {x: 328.72498, y: 165.025}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -340.5
+      x: -285.8478
       y: -143.5
-      width: 681
-      height: 287
+      width: 592.17395
+      height: 249.56522
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
@@ -424,9 +424,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.5319285, y: 0.20363533, z: -0.13356023, w: -0.8110157}
   m_Size:
-    m_Target: 0.81597894
+    m_Target: 3.8729022
     speed: 2
-    m_Value: 0.81597894
+    m_Value: 3.8729022
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -467,9 +467,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 9c470000
-    m_LastClickedID: 18332
-    m_ExpandedIDs: 4eb2ffff50b2ffff98fbffff00000000c4470000
+    m_SelectedIDs: 56490000
+    m_LastClickedID: 18774
+    m_ExpandedIDs: 42f2ffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -531,19 +531,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Mirko\Documents\GitHub\AUI\AUI
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 77}
-    m_SelectedIDs: e23b0000
-    m_LastClickedID: 15330
-    m_ExpandedIDs: 000000001a3a0000463b0000543b00007c3b0000463c00008e3e0000d83f00008e400000e640000040440000a24c000000ca9a3bffffff7f
+    m_SelectedIDs: 90410000
+    m_LastClickedID: 16784
+    m_ExpandedIDs: 00000000263c0000583d0000663d00008c3d0000703e0000a0400000e441000098420000d8420000064600005c4e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -571,7 +571,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001a3a0000463b0000543b00007c3b0000463c00008e3e0000d83f00008e400000e640000040440000a24c000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000263c0000583d0000663d00008c3d0000703e0000a0400000e441000098420000d8420000064600005c4e000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -599,7 +599,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: 00650000dc3e0000e601feff44d0faffc6490000
+    m_ExpandedInstanceIDs: 00650000dc3e0000e601feff44d0faffc64900005c3a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

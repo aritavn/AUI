@@ -66,6 +66,8 @@ public class ChoiceManager : TaskManager
         switch (state)
         {
             case 1://POSATE-->CIBO
+                rightChild = 0;
+                break;
             case 5://TAVOLO APPARECCHIATO-->CIBO
                 rightChild = 0;
                 break;
