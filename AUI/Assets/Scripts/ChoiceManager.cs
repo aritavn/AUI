@@ -146,15 +146,11 @@ public class ChoiceManager : TaskManager
         {
             if (ourChild == 0)
                 chooseGroup = rnd.Next(1, 2);
-            if(secondObject-ourChild==1)
-            {
-                chooseGroup = 0;
-            }
             if (chooseGroup == 0)
             {
                 value = rnd.Next(0, ourChild - 1);
             }
-            if(chooseGroup == 1)
+            if(chooseGroup == 1&&(secondObject-ourChild)>2)
             {
                 value = rnd.Next(ourChild + 1, secondObject-1);
             }
@@ -168,15 +164,11 @@ public class ChoiceManager : TaskManager
         {
             if(ourChild==6)
                   chooseGroup = rnd.Next(0,1);
-            if (ourChild-secondObject == 1)
-            {
-                chooseGroup = 2;
-            }
-            if (chooseGroup == 0)
+            if (chooseGroup == 0 && secondObject!=0)
             {
                 value = rnd.Next(0, secondObject - 1);
             }
-            if (chooseGroup == 1)
+            if (chooseGroup == 1&&(ourChild - secondObject)>2)
             {
                 value = rnd.Next(secondObject + 1, ourChild - 1);
             }
