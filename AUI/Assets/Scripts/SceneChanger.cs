@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour, IInputClickHandler
 {
-
+    GameObject basics;
+    GameObject music;
 	// Use this for initialization
 	void Start () {
-       
+        basics = GameObject.Find("Basics");
+        music = GameObject.Find("MainSound");
     }
 	
 	// Update is called once per frame
@@ -24,6 +26,9 @@ public class SceneChanger : MonoBehaviour, IInputClickHandler
     }
 
     public void ChangeScene(string sceneName) {
+        
         Application.LoadLevel(sceneName);
+        Destroy(basics);
+        DontDestroyOnLoad(music);
     }
 }

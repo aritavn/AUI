@@ -116,7 +116,7 @@ public class Roulette : MonoBehaviour {
     {
         setWait();
         showEmpty();
-        audioLever.PlayDelayed(1.15f);
+        audioLever.PlayDelayed(1.2f);
         audioRolling.PlayDelayed(1.7f);
         randomState();
         m_Animator.SetTrigger("Open");
