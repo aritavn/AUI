@@ -39,9 +39,24 @@ public class ChoiceManager : TaskManager
         //da rimuovere poi
         floorPosition0.y = floorPosition0.y + 0.2f;
         Vector3 floorPosition1 = floorPosition0;
-        floorPosition1.x = floorPosition1.x + 1f;
         Vector3 floorPosition2 = floorPosition0;
-        floorPosition2.x = floorPosition2.x - 1f;
+        int objectPosition = rnd.Next(0, 3);
+        if(objectPosition==0)
+        {
+            floorPosition1.x = floorPosition1.x + 1f;
+            floorPosition2.x = floorPosition2.x - 1f;
+        }
+        if (objectPosition == 1)
+        {
+            floorPosition0.x = floorPosition0.x + 1f;
+            floorPosition2.x = floorPosition2.x - 1f;
+        }
+        if (objectPosition == 2)
+        {
+            floorPosition1.x = floorPosition1.x + 1f;
+            floorPosition0.x = floorPosition0.x - 1f;
+        }
+        
 
         int secondChoice = 0;
         int thirdChoice = 0;
