@@ -1,40 +1,33 @@
-﻿using System;
+﻿using HoloToolkit.UX.Progress;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager
+public class EventManager:MonoBehaviour
 {
 
-    private static string TOUCH_SENSOR_HOLD = "6";
-    private static string TOUCH_SENSOR_CUDDLE = "4";
+    private static string TOUCH_SENSOR_HOLD = "4";
+    private static string TOUCH_SENSOR_CUDDLE = "6";
     private static string RFID_SENSOR_FOOD = "e043781b";
     private static string RFID_SENSOR_SLEEP = "23a386d5";
     private static string RFID_SENSOR_ENTERTAINMENT = "45b41e39";
-    private static string RFID_SENSOR_HYGIENE = "45b41e39";
+    private static string RFID_SENSOR_HYGIENE = "8f96dd00";
 
 
-    private int cuddleCount;
+    private int cuddleCount = 0;
     private bool conditionVerified = false;
     private int lastRoueletteState = 0;
     private int rouletteState = 0;
     private Roulette roulette;
-
-    private static EventManager instance = null;
-
-    private EventManager()
+    
+    private void Start()
     {
-
+        
     }
-
-    static public EventManager getEventManager()
+    private void Update()
     {
-        if (instance == null)
-        {
-            instance = new EventManager();
-        }
-
-        return instance;
+        
     }
 
 
@@ -44,28 +37,13 @@ public class EventManager
      */
     public void checkEvent(EventObject currentEvent)
     {
-        Debug.Log("Check ID interno: "+currentEvent.getID());
+
         lastRoueletteState = rouletteState;
         roulette = GameObject.Find("Box8").GetComponent<Roulette>();
         rouletteState = roulette.getState();
-        
-
-        //Debug.Log("roulette state: " + rouletteState + " last state: " + lastRoueletteState);
-        if (rouletteState == lastRoueletteState && conditionVerified == true)
-        {
-            return;
-        }
-
-        if (lastRoueletteState != 11 && rouletteState == 11 && cuddleCount != 0)
-        {
-            resetCuddleCount();
-        }
-        /*if (lastRoueletteState == 11 && cuddleCount != 0 && rouletteState != lastRoueletteState)
-        {
-            resetCuddleCount();
-        }*/
 
         int desiredEventType = defineCategoryForState(rouletteState);
+        //int desiredEventType = 2;
 
 
 
@@ -77,15 +55,22 @@ public class EventManager
             return;
         }
 
+        if (currentEvent.getDuration() == null)
+        {
+            //if duration=0 it is the first event of the sensor
+            return;
+        }
+        else
+        {
             switch (desiredEventType)
             {
                 case 1:
                     //hold the dolphin for 5 second
                     conditionVerified = checkHoldDolphin(currentEvent);
                     break;
-
                 case 2:
                     //cuddle the dolphin 3 times
+
                     conditionVerified = checkCuddleDolphin(currentEvent);
                     break;
 
@@ -115,25 +100,51 @@ public class EventManager
                 roulette.showRight();
                 roulette.playRight();
 
-                //CALL TO MIRKO'S CODE
-                ChoiceManager choiceManager = GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>();
-                choiceManager.GenerateObjectsInWorld(rouletteState);
+                if (desiredEventType != 2)
+                {
+                    //CALL TO MIRKO'S CODE
+                    ChoiceManager choiceManager = GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>();
+                    choiceManager.GenerateObjectsInWorld(rouletteState);
+                }
+                else
+                {
+                    roulette.stopRoulette();
+                    StartCoroutine(Wait());
+                }
+
             }
             else
             {
-                Debug.Log("Condition not verified");
-                roulette.showWrong();
-                roulette.playWrong();
+                //if (currentEvent.getID() == TOUCH_SENSOR_CUDDLE && desiredEventType == 2)
+                if (cuddleCount != 0)
+                {
+                    roulette.playRight();
+                }
+                else
+                {
+                    Debug.Log("Condition not verified");
+                    roulette.showWrong();
+                    roulette.playWrong();
+                    if (desiredEventType == 2)
+                    {
+                        ProgressIndicator.Instance.SetProgress(0f);
+                    }
+
+                }
+
             }
-        
+        }
 
 
 
     }
-
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(10f);
+        roulette.startRoulette();
+    }
     private bool checkHoldDolphin(EventObject currentEvent)
     {
-        Debug.Log("CHECK HOLD");
         if (currentEvent.getType() == "touch" &
            currentEvent.getID() == TOUCH_SENSOR_HOLD &
            int.Parse(currentEvent.getDuration()) >= 5000)
@@ -146,24 +157,39 @@ public class EventManager
 
     private bool checkCuddleDolphin(EventObject currentEvent)
     {
-        Debug.Log("CHECK CUDDLE");
         if (currentEvent.getType() == "touch" &
             currentEvent.getID() == TOUCH_SENSOR_CUDDLE)
         {
-            Debug.Log("CHECK CUDDLE");
+
             cuddleCount++;
+            Debug.Log("COUNT: " + cuddleCount);
+            if (cuddleCount == 1)
+            {
+                ProgressIndicator.Instance.SetProgress(0.3f);
+            }
+            if (cuddleCount == 2)
+            {
+                ProgressIndicator.Instance.SetProgress(0.6f);
+            }
+
             if (cuddleCount == 3)
             {
+                ProgressIndicator.Instance.SetProgress(1f);
                 resetCuddleCount();
+                ProgressIndicator.Instance.Close();
                 return true;
             }
+
+        }
+        else
+        {
+            resetCuddleCount();
         }
         return false;
     }
 
     private bool checkRfidFood(EventObject currentEvent)
     {
-        Debug.Log("CHECK FOOD");
         if (currentEvent.getType() == "rfid" &
             currentEvent.getID() == RFID_SENSOR_FOOD)
         {
@@ -174,7 +200,6 @@ public class EventManager
 
     private bool checkRfidHygiene(EventObject currentEvent)
     {
-        Debug.Log("CHECK HYGIENE");
         if (currentEvent.getType() == "rfid" &&
             currentEvent.getID() == RFID_SENSOR_HYGIENE)
         {
@@ -185,7 +210,6 @@ public class EventManager
 
     private bool checkRfidEnterteinment(EventObject currentEvent)
     {
-        Debug.Log("CHECK ENTERTEINMENT");
         if (currentEvent.getType() == "rfid" &&
             currentEvent.getID() == RFID_SENSOR_ENTERTAINMENT)
         {
@@ -196,7 +220,6 @@ public class EventManager
 
     private bool checkRfidSleep(EventObject currentEvent)
     {
-        Debug.Log("CHECK SLEEP");
         if (currentEvent.getType() == "rfid" &&
             currentEvent.getID() == RFID_SENSOR_SLEEP)
         {
@@ -233,9 +256,10 @@ public class EventManager
                 category = 5;
                 break;
             case 8:
-                category = 1;
+                category = 2;
                 break;
             case 9:
+                category = 2;
                 break;
             case 10:
                 category = 1;

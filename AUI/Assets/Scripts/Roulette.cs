@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HoloToolkit.UX.Progress;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,9 +81,21 @@ public class Roulette : MonoBehaviour {
                     break;
                 case 8:
                     ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 12") as Material;
+                    ProgressIndicator.Instance.Open(
+                            IndicatorStyleEnum.None,
+                            ProgressStyleEnum.ProgressBar,
+                            ProgressMessageStyleEnum.Visible,
+                            "FREDDO",
+                            null);
                     break;
                 case 9:
                     ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 13") as Material;
+                    ProgressIndicator.Instance.Open(
+                            IndicatorStyleEnum.None,
+                            ProgressStyleEnum.ProgressBar,
+                            ProgressMessageStyleEnum.Visible,
+                            "TRISTE",
+                            null);
                     break;
                 default:
                     break;
@@ -109,7 +122,7 @@ public class Roulette : MonoBehaviour {
     private void randomState()
     {
         System.Random rnd = new System.Random();
-        state = rnd.Next(1, 8);
+        state = rnd.Next(1, 10);
     }
 
     public void startRoulette()

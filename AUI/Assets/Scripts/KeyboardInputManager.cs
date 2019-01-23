@@ -21,7 +21,7 @@ public class KeyboardInputManager : MonoBehaviour {
             string jsonString = "{\"events\": [{\"typ\": \"touch\", \"val\": \"2\", \"act\": 1, \"dur\": \"1000\"}]}";
 
             EventObject eventObjcet = JsonParser.parse(jsonString);
-            EventManager eventManager = EventManager.getEventManager();
+            EventManager eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
             eventManager.checkEvent(eventObjcet);
         }
 
@@ -32,7 +32,7 @@ public class KeyboardInputManager : MonoBehaviour {
             string jsonString = "{\"events\": [{\"typ\": \"rfid\", \"val\": \"7\", \"act\": 1, \"dur\": \"1000\"}]}";
 
             EventObject eventObjcet = JsonParser.parse(jsonString);
-            EventManager eventManager = EventManager.getEventManager();
+            EventManager eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
             eventManager.checkEvent(eventObjcet);
         }
 
@@ -43,7 +43,7 @@ public class KeyboardInputManager : MonoBehaviour {
             string jsonString = "{\"events\": [{\"typ\": \"rfid\", \"val\": \"10\", \"act\": 1, \"dur\": \"1000\"}]}";
 
             EventObject eventObjcet = JsonParser.parse(jsonString);
-            EventManager eventManager = EventManager.getEventManager();
+            EventManager eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
             eventManager.checkEvent(eventObjcet);
         }
 
@@ -54,7 +54,7 @@ public class KeyboardInputManager : MonoBehaviour {
             string jsonString = "{\"events\": [{\"typ\": \"rfid\", \"val\": \"9\", \"act\": 1, \"dur\": \"1000\"}]}";
 
             EventObject eventObjcet = JsonParser.parse(jsonString);
-            EventManager eventManager = EventManager.getEventManager();
+            EventManager eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
             eventManager.checkEvent(eventObjcet);
         }
 
@@ -65,7 +65,7 @@ public class KeyboardInputManager : MonoBehaviour {
             string jsonString = "{\"events\": [{\"typ\": \"rfid\", \"val\": \"8\", \"act\": 1, \"dur\": \"1000\"}]}";
 
             EventObject eventObjcet = JsonParser.parse(jsonString);
-            EventManager eventManager = EventManager.getEventManager();
+            EventManager eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
             eventManager.checkEvent(eventObjcet);
         }
 
@@ -75,7 +75,7 @@ public class KeyboardInputManager : MonoBehaviour {
             string jsonString = "{\"events\": [{\"typ\": \"touch\", \"val\": \"5\", \"act\": 1, \"dur\": \"5000\"}]}";
 
             EventObject eventObjcet = JsonParser.parse(jsonString);
-            EventManager eventManager = EventManager.getEventManager();
+            EventManager eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
             eventManager.checkEvent(eventObjcet);
 
         }

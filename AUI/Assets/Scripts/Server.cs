@@ -141,7 +141,7 @@ public class Server : MonoBehaviour, IDisposable
         {
             string mex = lista[0].ToString();
             EventObject eventObjcet = JsonParser.parse(mex);
-            EventManager eventManager = EventManager.getEventManager();
+            EventManager eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
             Debug.Log("TYPE: "+eventObjcet.getType()+" ID evento:"+eventObjcet.getID()+ " ACT: "+eventObjcet.getActive()+ " DURATION: "+ eventObjcet.getDuration());
             if(eventObjcet.getID() != "")
             {
