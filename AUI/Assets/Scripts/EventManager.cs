@@ -6,12 +6,12 @@ using UnityEngine;
 public class EventManager
 {
 
-    private static string TOUCH_SENSOR_HOLD = "5";
-    private static string TOUCH_SENSOR_CUDDLE = "2";
-    private static string RFID_SENSOR_FOOD = "7";
-    private static string RFID_SENSOR_SLEEP = "8";
-    private static string RFID_SENSOR_ENTERTAINMENT = "9";
-    private static string RFID_SENSOR_HYGIENE = "10";
+    private static string TOUCH_SENSOR_HOLD = "6";
+    private static string TOUCH_SENSOR_CUDDLE = "4";
+    private static string RFID_SENSOR_FOOD = "e043781b";
+    private static string RFID_SENSOR_SLEEP = "23a386d5";
+    private static string RFID_SENSOR_ENTERTAINMENT = "45b41e39";
+    private static string RFID_SENSOR_HYGIENE = "45b41e39";
 
 
     private int cuddleCount;
@@ -44,13 +44,13 @@ public class EventManager
      */
     public void checkEvent(EventObject currentEvent)
     {
-
+        Debug.Log("Check ID interno: "+currentEvent.getID());
         lastRoueletteState = rouletteState;
         roulette = GameObject.Find("Box8").GetComponent<Roulette>();
         rouletteState = roulette.getState();
         
 
-        Debug.Log("roulette state: " + rouletteState + " last state: " + lastRoueletteState);
+        //Debug.Log("roulette state: " + rouletteState + " last state: " + lastRoueletteState);
         if (rouletteState == lastRoueletteState && conditionVerified == true)
         {
             return;
@@ -77,13 +77,6 @@ public class EventManager
             return;
         }
 
-        if (currentEvent.getDuration() == 0)
-        {
-            //if duration=0 it is the first event of the sensor
-            return;
-        }
-        else
-        {
             switch (desiredEventType)
             {
                 case 1:
@@ -128,10 +121,11 @@ public class EventManager
             }
             else
             {
+                Debug.Log("Condition not verified");
                 roulette.showWrong();
                 roulette.playWrong();
             }
-        }
+        
 
 
 
@@ -139,9 +133,10 @@ public class EventManager
 
     private bool checkHoldDolphin(EventObject currentEvent)
     {
+        Debug.Log("CHECK HOLD");
         if (currentEvent.getType() == "touch" &
            currentEvent.getID() == TOUCH_SENSOR_HOLD &
-           currentEvent.getDuration() >= 5000)
+           int.Parse(currentEvent.getDuration()) >= 5000)
         {
             return true;
         }
@@ -151,10 +146,11 @@ public class EventManager
 
     private bool checkCuddleDolphin(EventObject currentEvent)
     {
+        Debug.Log("CHECK CUDDLE");
         if (currentEvent.getType() == "touch" &
             currentEvent.getID() == TOUCH_SENSOR_CUDDLE)
         {
-            Debug.Log("CUDDLE");
+            Debug.Log("CHECK CUDDLE");
             cuddleCount++;
             if (cuddleCount == 3)
             {
@@ -167,6 +163,7 @@ public class EventManager
 
     private bool checkRfidFood(EventObject currentEvent)
     {
+        Debug.Log("CHECK FOOD");
         if (currentEvent.getType() == "rfid" &
             currentEvent.getID() == RFID_SENSOR_FOOD)
         {
@@ -177,6 +174,7 @@ public class EventManager
 
     private bool checkRfidHygiene(EventObject currentEvent)
     {
+        Debug.Log("CHECK HYGIENE");
         if (currentEvent.getType() == "rfid" &&
             currentEvent.getID() == RFID_SENSOR_HYGIENE)
         {
@@ -187,6 +185,7 @@ public class EventManager
 
     private bool checkRfidEnterteinment(EventObject currentEvent)
     {
+        Debug.Log("CHECK ENTERTEINMENT");
         if (currentEvent.getType() == "rfid" &&
             currentEvent.getID() == RFID_SENSOR_ENTERTAINMENT)
         {
@@ -197,6 +196,7 @@ public class EventManager
 
     private bool checkRfidSleep(EventObject currentEvent)
     {
+        Debug.Log("CHECK SLEEP");
         if (currentEvent.getType() == "rfid" &&
             currentEvent.getID() == RFID_SENSOR_SLEEP)
         {

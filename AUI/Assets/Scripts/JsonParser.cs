@@ -25,14 +25,14 @@ public class JsonParser
         {
             string type = (string)jObject.SelectToken("typ");
             string id = (string)jObject.SelectToken("val");
-            int active = (int)jObject.SelectToken("act");
+            string active = (string)jObject.SelectToken("act");
             if (jObject.SelectToken("dur") != null)
             {
-                int duration = (int)jObject.SelectToken("dur");
+                string duration = (string)jObject.SelectToken("dur");
                 eventObject = new EventObject(type, id, active, duration);
             } else
             {
-                eventObject = new EventObject(type, id, active, 0);
+                eventObject = new EventObject(type, id, active, null);
             }
             
         }

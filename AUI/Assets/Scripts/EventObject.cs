@@ -4,9 +4,9 @@ public class EventObject
 {
     string type;
     string id;
-    int active;
-    int duration;
-    public EventObject(string type, string id, int active, int duration)
+    string active;
+    string duration;
+    public EventObject(string type, string id, string active, string duration)
 	{
         this.type = type;
         this.id = id;
@@ -20,7 +20,7 @@ public class EventObject
         return type;
     }
 
-    public int getDuration()
+    public string getDuration()
     {
         return duration;
     }
@@ -30,7 +30,7 @@ public class EventObject
         return id;
     }
 
-    public int getActive()
+    public string getActive()
     {
         return active;
     }
