@@ -85,7 +85,7 @@ public class Roulette : MonoBehaviour {
                             IndicatorStyleEnum.None,
                             ProgressStyleEnum.ProgressBar,
                             ProgressMessageStyleEnum.Visible,
-                            "FREDDO",
+                            "",
                             null);
                     break;
                 case 9:
@@ -94,7 +94,7 @@ public class Roulette : MonoBehaviour {
                             IndicatorStyleEnum.None,
                             ProgressStyleEnum.ProgressBar,
                             ProgressMessageStyleEnum.Visible,
-                            "TRISTE",
+                            "",
                             null);
                     break;
                 default:
@@ -148,16 +148,38 @@ public class Roulette : MonoBehaviour {
         audioWrong.Play();
     }
 
-    public void showRight()
+    public void showRight(int type)
     {
+        state = 0;
         left.GetComponent<Renderer>().material = Resources.Load("LeftRight") as Material;
-        StartCoroutine(Wait());
+        if (type == 0)
+        {
+            StartCoroutine(Wait());
+        }
+        if (type == 1)
+        {
+            state = 0;
+            ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 10") as Material;
+            StartCoroutine(Wait2());
+        }
+        if (type == 2)
+        {
+            state = 0;
+            ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 11") as Material;
+            StartCoroutine(Wait2());
+        }
     }
 
     private IEnumerator Wait()
     {
         yield return new WaitForSeconds(10f);
         left.GetComponent<Renderer>().material = Resources.Load("Left") as Material;
+    }
+
+    private IEnumerator Wait2()
+    {
+        yield return new WaitForSeconds(2f);
+        stopRoulette();
     }
 
     public void showWrong()

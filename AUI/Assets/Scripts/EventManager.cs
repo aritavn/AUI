@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager:MonoBehaviour
+public class EventManager : MonoBehaviour
 {
 
     private static string TOUCH_SENSOR_HOLD = "4";
@@ -20,7 +20,12 @@ public class EventManager:MonoBehaviour
     private int lastRoueletteState = 0;
     private int rouletteState = 0;
     private Roulette roulette;
-    
+
+    private bool isTimerWorks = false;
+    private bool isTouched1 = false;
+    private bool isTouched2 = false;
+    private float timeLeft = 5f;
+
     private void Start()
     {
         
@@ -28,6 +33,19 @@ public class EventManager:MonoBehaviour
     private void Update()
     {
         
+        if (isTimerWorks)
+        {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0)
+            {
+                ProgressIndicator.Instance.SetProgress(0f);
+                isTimerWorks = false;
+                timeLeft = 5f;
+                isTouched1 = false;
+                isTouched2 = false;
+            }
+        }
+
     }
 
 
@@ -97,18 +115,30 @@ public class EventManager:MonoBehaviour
             if (conditionVerified)
             {
                 Debug.Log("Condition verified");
-                roulette.showRight();
-                roulette.playRight();
 
-                if (desiredEventType != 2)
+
+                if (desiredEventType != 2 & desiredEventType != 1)
                 {
+                    roulette.showRight(0);//0
+                    roulette.playRight();
                     //CALL TO MIRKO'S CODE
                     ChoiceManager choiceManager = GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>();
                     choiceManager.GenerateObjectsInWorld(rouletteState);
                 }
                 else
                 {
-                    roulette.stopRoulette();
+                    if (desiredEventType == 2)
+                    {
+                        roulette.showRight(2); //2
+                        roulette.playRight();
+                    }
+                    if (desiredEventType == 1)
+                    {
+                        roulette.showRight(1);//1
+                        roulette.playRight();
+                    }
+
+                    //roulette.stopRoulette();
                     StartCoroutine(Wait());
                 }
 
@@ -124,7 +154,14 @@ public class EventManager:MonoBehaviour
                 {
                     Debug.Log("Condition not verified");
                     roulette.showWrong();
-                    roulette.playWrong();
+                    if(desiredEventType == 1 && (currentEvent.getID() == TOUCH_SENSOR_CUDDLE | currentEvent.getID() == TOUCH_SENSOR_HOLD) )
+                    {
+                        roulette.playRight();
+                    }
+                    else
+                    {
+                        roulette.playWrong();
+                    }
                     if (desiredEventType == 2)
                     {
                         ProgressIndicator.Instance.SetProgress(0f);
@@ -146,10 +183,41 @@ public class EventManager:MonoBehaviour
     private bool checkHoldDolphin(EventObject currentEvent)
     {
         if (currentEvent.getType() == "touch" &
-           currentEvent.getID() == TOUCH_SENSOR_HOLD &
-           int.Parse(currentEvent.getDuration()) >= 5000)
+           ((currentEvent.getID() == TOUCH_SENSOR_HOLD) | (currentEvent.getID() == TOUCH_SENSOR_CUDDLE)) &
+           !isTimerWorks)
         {
-            return true;
+            isTimerWorks = true;
+            ProgressIndicator.Instance.SetProgress(0.5f);
+            roulette.playRight();
+            if (currentEvent.getID() == TOUCH_SENSOR_HOLD)
+            {
+                isTouched1 = true;
+            }
+            if (currentEvent.getID() == TOUCH_SENSOR_CUDDLE)
+            {
+                isTouched2 = true;
+            }
+
+        }
+        else
+        {
+            if (currentEvent.getType() == "touch" &
+           ((currentEvent.getID() == TOUCH_SENSOR_HOLD) | (currentEvent.getID() == TOUCH_SENSOR_CUDDLE)) &
+           isTimerWorks)
+            {
+                if ((isTouched1 & currentEvent.getID() == TOUCH_SENSOR_CUDDLE) |
+                    (isTouched2 & currentEvent.getID() == TOUCH_SENSOR_HOLD))
+                {
+                    ProgressIndicator.Instance.SetProgress(1f);
+                    isTimerWorks = false;
+                    timeLeft = 5f;
+                    ProgressIndicator.Instance.Close();
+                    return true;
+                }
+
+
+            }
+
         }
 
         return false;
@@ -256,7 +324,7 @@ public class EventManager:MonoBehaviour
                 category = 5;
                 break;
             case 8:
-                category = 2;
+                category = 1;
                 break;
             case 9:
                 category = 2;
