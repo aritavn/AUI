@@ -101,10 +101,10 @@ namespace HoloToolkit.Unity.SpatialMapping.Tests
             {
                 // Reduce our triangle count by removing any triangles
                 // from SpatialMapping meshes that intersect with active planes.
-                //RemoveVertices(SurfaceMeshesToPlanes.Instance.ActivePlanes);
+                RemoveVertices(SurfaceMeshesToPlanes.Instance.ActivePlanes);
 
                 // After scanning is over, switch to the secondary (occlusion) material.
-                //SpatialMappingManager.Instance.SetSurfaceMaterial(secondaryMaterial);
+                SpatialMappingManager.Instance.SetSurfaceMaterial(secondaryMaterial);
 
 
                 // MESSAGGIO DI CONFERMA PER INIZIARE IL GIOCO

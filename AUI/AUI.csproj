@@ -771,6 +771,9 @@
     <Compile Include="Assets\Scripts\ScanManager.cs" />
     <Compile Include="Assets\Scripts\SceneChanger.cs" />
     <Compile Include="Assets\Scripts\Server.cs" />
+    <Compile Include="Assets\Scripts\Setting1.cs" />
+    <Compile Include="Assets\Scripts\Setting2.cs" />
+    <Compile Include="Assets\Scripts\SkipTurn.cs" />
     <Compile Include="Assets\Scripts\SpatialMappingCollisionDetector.cs" />
     <Compile Include="Assets\Scripts\SpatialProcessing.cs" />
     <Compile Include="Assets\Scripts\SpatialUnderstandingState.cs" />

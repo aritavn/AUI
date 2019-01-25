@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEngine.EventSystems;
 
 public class Roulette : MonoBehaviour {
     private GameObject ruota;
@@ -23,6 +25,9 @@ public class Roulette : MonoBehaviour {
     private AudioSource audioLever;
     private AudioSource audioRolling;
     private AudioSource audioFireworks;
+    private System.Random rnd = new System.Random();
+    List<int> history = new List<int>();
+    private bool ready = false;
 
     private int state;
 	// Use this for initialization
@@ -46,11 +51,13 @@ public class Roulette : MonoBehaviour {
         box = GameObject.Find("Box8");
         m_Animator = box.GetComponent<Animator>();
 
+        Destroy(box.GetComponent<Rigidbody>());
 
     }
 	
 	// Update is called once per frame
 	void Update () {
+
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Open") &&
             m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f &&
             closing==false)
@@ -121,8 +128,35 @@ public class Roulette : MonoBehaviour {
 
     private void randomState()
     {
-        System.Random rnd = new System.Random();
-        state = rnd.Next(1, 10);
+        bool isInList = false;
+        if (history.Count == 9)
+        {
+            Destroy(GameObject.Find("Basics"));
+            Destroy(GameObject.Find("Box8"));
+            Destroy(GameObject.Find("Spatial"));
+            Application.LoadLevel("Menu");
+            
+        }
+        else
+        {
+            do
+            {
+                state = rnd.Next(1, 10);
+                isInList = history.IndexOf(state) != -1;
+            } while (isInList);
+            history.Add(state);
+        }
+       
+    }
+
+    public void skipTurn()
+    {
+        if (ready)
+        {
+            quickStop();
+            StartCoroutine(Wait3());
+            
+        }
     }
 
     public void startRoulette()
@@ -182,6 +216,12 @@ public class Roulette : MonoBehaviour {
         stopRoulette();
     }
 
+    private IEnumerator Wait3()
+    {
+        yield return new WaitForSeconds(4f);
+        startRoulette();
+    }
+
     public void showWrong()
     {
         left.GetComponent<Renderer>().material = Resources.Load("LeftWrong") as Material;
@@ -196,6 +236,7 @@ public class Roulette : MonoBehaviour {
     public void setGo()
     {
         top.GetComponent<Renderer>().material = Resources.Load("TopGo") as Material;
+        ready = true;
     }
 
     public void setWait()
@@ -205,12 +246,22 @@ public class Roulette : MonoBehaviour {
 
     public void stopRoulette()
     {
+        ready = false;
         setWait();
         audioFireworks.PlayDelayed(1.3f);
         m_Animator.SetTrigger("Close");
         closing = true;
         rocket = GameObject.Find("Rocket");
         rocket.GetComponent<ParticleSystem>().Play();
+        ruota.GetComponent<Renderer>().material = Resources.Load("Ruota") as Material;
+    }
+
+    public void quickStop()
+    {
+        ready = false;
+        setWait();
+        m_Animator.SetTrigger("Close2");
+        closing = true;
         ruota.GetComponent<Renderer>().material = Resources.Load("Ruota") as Material;
     }
 }

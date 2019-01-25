@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity.InputModule;
+using UnityEngine.UI;
 
 public class AudioToggle : MonoBehaviour, IInputClickHandler
 {
@@ -28,11 +29,13 @@ public class AudioToggle : MonoBehaviour, IInputClickHandler
         if (isPlaying) {
             music.GetComponent<AudioSource>().Stop();
             isPlaying = false;
+            GameObject.Find("Text (2)").GetComponent<UnityEngine.UI.Text>().text = "Audio No";
         }
         else
         {
             music.GetComponent<AudioSource>().Play();
             isPlaying = true;
+            GameObject.Find("Text (2)").GetComponent<UnityEngine.UI.Text>().text = "Audio Si";
         }
 
     }

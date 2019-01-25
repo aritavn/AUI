@@ -25,6 +25,7 @@ namespace LocalJoost.HoloToolkitExtensions
                 box.GetComponent<Roulette>().startRoulette();
                 GazeMover.IsActive = false;
             }
+            enabled = false;
         }
     }
 }
