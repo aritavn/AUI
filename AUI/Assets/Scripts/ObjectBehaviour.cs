@@ -14,10 +14,14 @@ public class ObjectBehaviour : MonoBehaviour, IInputClickHandler
         }
         if (gameObject.GetComponent<ID>().getID()==state)
         {
-            GameObject.Find("Box8").GetComponent<Roulette>().showRight(0);
-            GameObject.Find("Box8").GetComponent<Roulette>().playRight();
-            StartCoroutine(Wait());
-            GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>().DestroyObjects();
+            if (GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>().getCompleted() == 0)
+            {
+                GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>().setCompleted();
+                GameObject.Find("Box8").GetComponent<Roulette>().showRight(0);
+                GameObject.Find("Box8").GetComponent<Roulette>().playRight();
+                StartCoroutine(Wait());
+                GameObject.Find("ChoiceManager").GetComponent<ChoiceManager>().DestroyObjects();
+            }
         }
         else
         {

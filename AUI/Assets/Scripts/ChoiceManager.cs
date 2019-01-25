@@ -20,7 +20,7 @@ public class ChoiceManager : TaskManager
     private int firstTime = 0;
     System.Random rnd = new System.Random();
     public int currentState;
-
+    private int completed = 0;
     public void GenerateObjectsInWorld(int state)
     {
         currentState = state;
@@ -134,7 +134,18 @@ public class ChoiceManager : TaskManager
     {
         return currentState;
     }
-
+    public int getCompleted()
+    {
+        return completed;
+    }
+    public void setCompleted()
+    {
+        completed = 1;
+    }
+    public void resetCompleted()
+    {
+        completed = 0;
+    }
     private Transform TableSelect(List<GameObject> tables)
     {
         Vector3 gazePosition = new Vector3(0f, 0f, 0f);
@@ -261,6 +272,7 @@ public class ChoiceManager : TaskManager
     {
         yield return new WaitForSeconds(10f);
         Destroy(GameObject.Find("Object"));
+        resetCompleted();
         GameObject.Find("Box8").GetComponent<Roulette>().startRoulette();
     }
 
