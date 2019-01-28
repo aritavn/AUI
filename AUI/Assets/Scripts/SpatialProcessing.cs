@@ -46,6 +46,8 @@ namespace HoloToolkit.Unity.SpatialMapping.Tests
 
             // Register for the MakePlanesComplete event.
             SurfaceMeshesToPlanes.Instance.MakePlanesComplete += SurfaceMeshesToPlanes_MakePlanesComplete;
+
+            GameObject.Find("TextDisplay").GetComponent<TextMesh>().text = "Sto analizzando la stanza...";
         }
 
         /// <summary>
@@ -79,6 +81,8 @@ namespace HoloToolkit.Unity.SpatialMapping.Tests
 
                     // Set meshesProcessed to true.
                     meshesProcessed = true;
+
+                    
                 }
             }
         }
@@ -109,6 +113,9 @@ namespace HoloToolkit.Unity.SpatialMapping.Tests
 
                 // MESSAGGIO DI CONFERMA PER INIZIARE IL GIOCO
                 GameObject.Find("UX").GetComponent<TaskInteractionHandler>().ScanningComplete();
+
+                GameObject.Find("TextDisplay").GetComponent<TextMesh>().text = "";
+
             }
             else
             {

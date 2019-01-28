@@ -29,7 +29,8 @@ public class Roulette : MonoBehaviour {
     List<int> history = new List<int>();
     private bool ready = false;
 
-    private int state;
+    private int state = 0;
+    private int permaState;
 	// Use this for initialization
 	void Start () {
 
@@ -134,6 +135,7 @@ public class Roulette : MonoBehaviour {
             Destroy(GameObject.Find("Basics"));
             Destroy(GameObject.Find("Box8"));
             Destroy(GameObject.Find("Spatial"));
+            Destroy(GameObject.Find("ChoiceManager"));
             Application.LoadLevel("Menu");
             
         }
@@ -146,6 +148,8 @@ public class Roulette : MonoBehaviour {
             } while (isInList);
             history.Add(state);
         }
+
+        permaState = state;
        
     }
 
@@ -153,6 +157,10 @@ public class Roulette : MonoBehaviour {
     {
         if (ready)
         {
+            if(permaState == 8 || permaState == 9)
+            {
+                GameObject.Find("EventManager").GetComponent<EventManager>().hardClose();
+            }
             quickStop();
             StartCoroutine(Wait3());
             
@@ -184,7 +192,7 @@ public class Roulette : MonoBehaviour {
 
     public void showRight(int type)
     {
-        state = 0;
+        state = 99;
         left.GetComponent<Renderer>().material = Resources.Load("LeftRight") as Material;
         if (type == 0)
         {
@@ -192,13 +200,11 @@ public class Roulette : MonoBehaviour {
         }
         if (type == 1)
         {
-            state = 0;
             ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 10") as Material;
             StartCoroutine(Wait2());
         }
         if (type == 2)
         {
-            state = 0;
             ruota.GetComponent<Renderer>().material = Resources.Load("Ruota 11") as Material;
             StartCoroutine(Wait2());
         }
@@ -246,6 +252,7 @@ public class Roulette : MonoBehaviour {
 
     public void stopRoulette()
     {
+        state = 0;
         ready = false;
         setWait();
         audioFireworks.PlayDelayed(1.3f);
@@ -258,6 +265,7 @@ public class Roulette : MonoBehaviour {
 
     public void quickStop()
     {
+        state = 0;
         ready = false;
         setWait();
         m_Animator.SetTrigger("Close2");

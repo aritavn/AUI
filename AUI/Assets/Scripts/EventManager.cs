@@ -20,6 +20,7 @@ public class EventManager : MonoBehaviour
     private int lastRoueletteState = 0;
     private int rouletteState = 0;
     private Roulette roulette;
+    private int desiredEventType = 0;
 
     private bool isTimerWorks = false;
     private bool isTouched1 = false;
@@ -60,7 +61,14 @@ public class EventManager : MonoBehaviour
         roulette = GameObject.Find("Box8").GetComponent<Roulette>();
         rouletteState = roulette.getState();
 
-        int desiredEventType = defineCategoryForState(rouletteState);
+        if (rouletteState != 0)
+        {
+            desiredEventType = defineCategoryForState(rouletteState);
+        }
+        else
+        {
+            desiredEventType = 0;
+        }
         //int desiredEventType = 2;
 
 
@@ -153,7 +161,6 @@ public class EventManager : MonoBehaviour
                 else
                 {
                     Debug.Log("Condition not verified");
-                    roulette.showWrong();
                     if(desiredEventType == 1 && (currentEvent.getID() == TOUCH_SENSOR_CUDDLE | currentEvent.getID() == TOUCH_SENSOR_HOLD) )
                     {
                         roulette.playRight();
@@ -161,6 +168,7 @@ public class EventManager : MonoBehaviour
                     else
                     {
                         roulette.playWrong();
+                        roulette.showWrong();
                     }
                     if (desiredEventType == 2)
                     {
@@ -184,7 +192,8 @@ public class EventManager : MonoBehaviour
     {
         if (currentEvent.getType() == "touch" &
            ((currentEvent.getID() == TOUCH_SENSOR_HOLD) | (currentEvent.getID() == TOUCH_SENSOR_CUDDLE)) &
-           !isTimerWorks)
+           !isTimerWorks &
+           desiredEventType == 1)
         {
             isTimerWorks = true;
             ProgressIndicator.Instance.SetProgress(0.5f);
@@ -223,10 +232,18 @@ public class EventManager : MonoBehaviour
         return false;
     }
 
+    public void hardClose()
+    {
+        ProgressIndicator.Instance.Close();
+        desiredEventType = 0;
+       
+    }
+
     private bool checkCuddleDolphin(EventObject currentEvent)
     {
         if (currentEvent.getType() == "touch" &
-            currentEvent.getID() == TOUCH_SENSOR_CUDDLE)
+            currentEvent.getID() == TOUCH_SENSOR_CUDDLE & 
+            desiredEventType == 2)
         {
 
             cuddleCount++;
