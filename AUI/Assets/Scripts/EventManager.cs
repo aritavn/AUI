@@ -25,7 +25,7 @@ public class EventManager : MonoBehaviour
     private bool isTimerWorks = false;
     private bool isTouched1 = false;
     private bool isTouched2 = false;
-    private float timeLeft = 5f;
+    private float timeLeft = 20f;
 
     private void Start()
     {
@@ -41,7 +41,7 @@ public class EventManager : MonoBehaviour
             {
                 ProgressIndicator.Instance.SetProgress(0f);
                 isTimerWorks = false;
-                timeLeft = 5f;
+                timeLeft = 20f;
                 isTouched1 = false;
                 isTouched2 = false;
             }
@@ -219,7 +219,7 @@ public class EventManager : MonoBehaviour
                 {
                     ProgressIndicator.Instance.SetProgress(1f);
                     isTimerWorks = false;
-                    timeLeft = 5f;
+                    timeLeft = 20f;
                     ProgressIndicator.Instance.Close();
                     return true;
                 }

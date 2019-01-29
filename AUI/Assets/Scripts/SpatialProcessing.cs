@@ -116,6 +116,8 @@ namespace HoloToolkit.Unity.SpatialMapping.Tests
 
                 GameObject.Find("TextDisplay").GetComponent<TextMesh>().text = "";
 
+
+
             }
             else
             {

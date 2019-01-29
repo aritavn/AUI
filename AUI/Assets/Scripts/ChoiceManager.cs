@@ -116,16 +116,86 @@ public class ChoiceManager : TaskManager
                 break;
         }
 
-        Transform food = objectPrefabs.transform.GetChild(rightChild);
-        Instantiate(food, item1, food.rotation, objects);
-        secondChoice = findRandom(rightChild, childCount);
-        other1 = objectPrefabs.transform.GetChild(secondChoice);
-        Instantiate(other1, item2, other1.rotation, objects);
-        thirdChoice = findRandom2(rightChild, secondChoice, childCount);
-        other2 = objectPrefabs.transform.GetChild(thirdChoice);
-        Instantiate(other2, item3, other2.rotation, objects);
+        if (PlayerPrefs.GetInt("hard") == 1)
+        {
+            Transform food = objectPrefabs.transform.GetChild(rightChild);
+            Instantiate(food, item1, food.rotation, objects);
+            secondChoice = findRandom(rightChild, childCount);
+            other1 = objectPrefabs.transform.GetChild(secondChoice);
+            Instantiate(other1, item2, other1.rotation, objects);
+            thirdChoice = findRandom2(rightChild, secondChoice, childCount);
+            other2 = objectPrefabs.transform.GetChild(thirdChoice);
+            Instantiate(other2, item3, other2.rotation, objects);
+        }
+        else
+        {
+            Transform food = objectPrefabs.transform.GetChild(rightChild);
+            Instantiate(food, item1, food.rotation, objects);
+
+            do
+            {
+                secondChoice = findRandom(rightChild, childCount);
+            } while (getCategory(rightChild) == getCategory(secondChoice));
+
+            other1 = objectPrefabs.transform.GetChild(secondChoice);
+            Instantiate(other1, item2, other1.rotation, objects);
+
+            do
+            {
+                thirdChoice = findRandom2(rightChild, secondChoice, childCount);
+            } while (getCategory(rightChild) == getCategory(thirdChoice));
+
+            other2 = objectPrefabs.transform.GetChild(thirdChoice);
+            Instantiate(other2, item3, other2.rotation, objects);
+        }
 
     }
+
+    public int getCategory(int selected)
+    {
+        int category = 0; 
+
+        switch (selected)
+        {
+            case 0:
+                category = 1;
+                break;
+            case 1:
+                category = 1;
+                break;
+            case 2:
+                category = 3;
+                break;
+            case 3:
+                category = 3;
+                break;
+            case 4:
+                category = 2;
+                break;
+            case 5:
+                category = 4;
+                break;
+            case 6:
+                category = 2;
+                break;
+            case 7:
+                category = 1;
+                break;
+            case 8:
+                category = 1;
+                break;
+            case 9:
+                category = 1;
+                break;
+            case 10:
+                category = 1;
+                break;
+        }
+
+        //1 Cibo | 2 Entertainment | 3 Hygiene | 4 Sleep
+        return category;
+    }
+
     public override void GenerateObjectsInWorld()
     {
     }

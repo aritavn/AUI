@@ -221,7 +221,7 @@ namespace HoloToolkit.UX.Progress
             animator.SetTrigger("Close");
         }
 
-        private void Start()
+        public void Start()
         {
             gameObject.SetActive(false);
             progressText.gameObject.SetActive(false);

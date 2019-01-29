@@ -129,24 +129,31 @@ public class Roulette : MonoBehaviour {
 
     private void randomState()
     {
-        bool isInList = false;
-        if (history.Count == 9)
+        if (PlayerPrefs.GetInt("order") == 1)
         {
-            Destroy(GameObject.Find("Basics"));
-            Destroy(GameObject.Find("Box8"));
-            Destroy(GameObject.Find("Spatial"));
-            Destroy(GameObject.Find("ChoiceManager"));
-            Application.LoadLevel("Menu");
-            
+            bool isInList = false;
+            if (history.Count == 9)
+            {
+                Destroy(GameObject.Find("Basics"));
+                Destroy(GameObject.Find("Box8"));
+                Destroy(GameObject.Find("Spatial"));
+                Destroy(GameObject.Find("ChoiceManager"));
+                Application.LoadLevel("Menu");
+
+            }
+            else
+            {
+                do
+                {
+                    state = rnd.Next(1, 10);
+                    isInList = history.IndexOf(state) != -1;
+                } while (isInList);
+                history.Add(state);
+            }
         }
         else
         {
-            do
-            {
-                state = rnd.Next(1, 10);
-                isInList = history.IndexOf(state) != -1;
-            } while (isInList);
-            history.Add(state);
+            state = rnd.Next(1, 10);
         }
 
         permaState = state;

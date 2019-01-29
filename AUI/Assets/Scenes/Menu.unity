@@ -1036,7 +1036,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: casuale
+  m_Text: in ordine
 --- !u!222 &1315502283
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1827,7 +1827,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: facile
+  m_Text: difficile
 --- !u!222 &2104249429
 CanvasRenderer:
   m_ObjectHideFlags: 0

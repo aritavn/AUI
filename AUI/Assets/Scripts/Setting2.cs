@@ -9,13 +9,13 @@ public class Setting2 : MonoBehaviour, IInputClickHandler
 
     GameObject button;
     bool startCond = true;
-    bool random = true;
+    bool order = true;
 
     // Use this for initialization
     void Start()
     {
         button = GameObject.Find("Button1");
-        PlayerPrefs.SetInt("random", 1);
+        PlayerPrefs.SetInt("order", 1);
     }
 
     // Update is called once per frame
@@ -30,18 +30,18 @@ public class Setting2 : MonoBehaviour, IInputClickHandler
 
         if (startCond)
         {
-            GameObject.Find("Text (4)").GetComponent<UnityEngine.UI.Text>().text = "In Ordine";
+            GameObject.Find("Text (4)").GetComponent<UnityEngine.UI.Text>().text = "Casuale";
             startCond = false;
-            random = false;
-            PlayerPrefs.SetInt("random", 0);
+            order = false;
+            PlayerPrefs.SetInt("order", 0);
         }
         else
         {
 
-            GameObject.Find("Text (4)").GetComponent<UnityEngine.UI.Text>().text = "Casuale";
-            random = true;
+            GameObject.Find("Text (4)").GetComponent<UnityEngine.UI.Text>().text = "In Ordine";
+            order = true;
             startCond = true;
-            PlayerPrefs.SetInt("random", 1);
+            PlayerPrefs.SetInt("order", 1);
         }
 
     }
