@@ -81,7 +81,7 @@ public class EventManager : MonoBehaviour
             return;
         }
 
-        if (currentEvent.getDuration() == null)
+        if (currentEvent.getDuration() != null)
         {
             //if duration=0 it is the first event of the sensor
             return;
