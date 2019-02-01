@@ -137,6 +137,7 @@ public class Roulette : MonoBehaviour {
                 Destroy(GameObject.Find("Basics"));
                 Destroy(GameObject.Find("Box8"));
                 Destroy(GameObject.Find("Spatial"));
+                Destroy(GameObject.Find("MainSound"));
                 Destroy(GameObject.Find("ChoiceManager"));
                 Application.LoadLevel("Menu");
 

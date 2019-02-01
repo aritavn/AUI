@@ -219,6 +219,7 @@ namespace HoloToolkit.UX.Progress
             progressText.gameObject.SetActive(false);
             messageText.gameObject.SetActive(false);
             animator.SetTrigger("Close");
+            UnityEngine.Object.Destroy(gameObject);
         }
 
         public void Start()
